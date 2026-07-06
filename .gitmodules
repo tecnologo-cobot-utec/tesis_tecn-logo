@@ -1,0 +1,3 @@
+[submodule "codigo/herkulex-drs0602-lib"]
+	path = codigo/herkulex-drs0602-lib
+	url = https://github.com/raul-benelli-utec/herkulex-drs0602-lib.git

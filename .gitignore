@@ -1,0 +1,15 @@
+# LaTeX auxiliares
+*.aux
+*.bbl
+*.blg
+*.lof
+*.log
+*.lot
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# ZIP regenerable desde templates/utec-tesis-latex/
+tesis-overleaf.zip

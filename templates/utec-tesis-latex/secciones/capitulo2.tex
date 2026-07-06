@@ -1,0 +1,137 @@
+%% ============================================================================
+%% CAPÍTULO 2 - MARCO TEÓRICO
+%% ============================================================================
+
+\chapter{MARCO TEÓRICO}
+
+\section{Antecedentes de la investigación}
+
+\cite{delacruz2022} presentó su proyecto titulado ``Diseño mecánico de un robot colaborativo móvil usando un sistema de engranajes planetarios''. Este trabajo se centró en el diseño mecánico de un robot colaborativo móvil, sin implementación de prototipo físico, utilizando engranajes planetarios que permiten una transmisión eficiente de par y velocidad en el brazo robótico. Este diseño no solo considera la geometría de los engranajes, sino también los ejes que los soportan, optimizando así su estabilidad y durabilidad. Dado su potencial para implementación y fabricación, el proyecto se planteó como una de las etapas iniciales de un sistema colaborativo móvil, proponiéndose en futuros trabajos el desarrollo físico y prototipo real del diseño. Este sistema planetario destaca por su diseño compacto, que distribuye el par en múltiples puntos a través de satélites, logrando una mayor transmisión de par sin pérdida significativa de velocidad.
+
+\section{Cobot (Robot Colaborativo)}
+
+Un robot colaborativo es un robot que se puede utilizar en una operación colaborativa, en la que un sistema robótico diseñado específicamente y un operador humano trabajan en cooperación directa dentro de un espacio de trabajo definido. El término robot define el brazo robótico y el control del robot y no incluye el efector final o la pieza del robot. Con el término sistema robótico describimos robot, efector final y pieza de trabajo \cite{lenarcic2012}.
+
+Las características operativas de los sistemas de robots colaborativos son significativamente diferentes de las de los sistemas de robots industriales tradicionales presentados en las normas ISO 10218-1:2011 e ISO 10218-2:2011. En las operaciones de robots colaborativos, los operadores pueden trabajar en proximidad directa al sistema de robot mientras el sistema está activo, y el contacto físico entre un operador y el sistema de robot puede ocurrir dentro del espacio de trabajo colaborativo. Como tal, se deben introducir medidas de protección adecuadas para los sistemas de robots colaborativos \cite{lenarcic2012}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{Esquema del robot paralelo de 6 grados de libertad..png}
+  \caption{Esquema del robot paralelo de 6 grados de libertad. Extraído de \cite{lenarcic2012}.}
+  \label{fig:robot-paralelo}
+\end{figure}
+
+\section{Evolución de la robótica colaborativa}
+
+El desarrollo de robots colaborativos (cobots) ha experimentado una importante evolución desde su surgimiento hasta convertirse en una de las tecnologías clave dentro de la Industria 4.0 y la emergente Industria 5.0. La historia de los cobots comienza en los años 90, cuando el concepto de robots que pudieran interactuar de manera segura y directa con los humanos comenzó a desarrollarse como una solución a las limitaciones de los robots industriales tradicionales.
+
+Los robots industriales convencionales, introducidos por primera vez en la década de 1960, fueron diseñados principalmente para realizar tareas repetitivas y peligrosas en entornos de manufactura pesada. Estos robots, como los brazos robóticos utilizados en líneas de montaje automotriz, estaban confinados a áreas aisladas para evitar cualquier interacción peligrosa con los trabajadores humanos. Si bien estos robots lograron aumentar la eficiencia en la producción, su incapacidad para colaborar directamente con los humanos limitaba su flexibilidad en entornos cambiantes o donde se requería la intervención humana.
+
+En 1996, el primer ``cobot'' fue desarrollado por J. Edward Colgate y Michael Peshkin en la Northwestern University. A diferencia de los robots industriales tradicionales, los cobots están diseñados para compartir espacios de trabajo con humanos de manera segura, aprovechando su capacidad para interactuar físicamente con las personas en tareas colaborativas. Estos primeros cobots no funcionan de manera autónoma; en cambio, asistían a los operadores humanos con tareas como guiar herramientas pesadas o manipular piezas de gran tamaño, permitiendo a los trabajadores realizar sus labores con mayor precisión y menor esfuerzo físico.
+
+Con el avance de la tecnología y la llegada de la Industria 4.0, caracterizada por la automatización avanzada, la interconectividad y el uso de datos en tiempo real, los cobots encontraron un entorno ideal para su adopción masiva. La Industria 4.0 impulsó la integración de sistemas ciberfísicos, el Internet de las Cosas (IoT) y el análisis de datos en procesos de producción, lo que permitió a los cobots operar de manera más inteligente, flexible y eficiente. A diferencia de los robots tradicionales, que requerían programación especializada y compleja, los cobots modernos se caracterizan por su facilidad de programación y su capacidad para aprender nuevas tareas mediante interfaces intuitivas.
+
+Más recientemente, la evolución de los cobots ha tomado un giro hacia la Industria 5.0, un concepto emergente que se centra en la personalización masiva y la interacción más cercana entre humanos y máquinas. A diferencia de la Industria 4.0, que enfatiza la automatización completa, la Industria 5.0 busca una colaboración más profunda entre humanos y robots, donde las habilidades humanas, como la creatividad y la toma de decisiones, se combinan con la precisión y eficiencia de los cobots.
+
+\section{Operación colaborativa}
+
+La operación colaborativa no se define únicamente con el uso del robot, sino que está condicionada por la tarea, lo que está haciendo el sistema robótico y el espacio en el que se realiza la tarea. Se pueden incluir cuatro técnicas principales (una o una combinación de más) en la operación colaborativa:
+\begin{itemize}
+  \item Parada monitoreada con clasificación de seguridad;
+  \item Guía manual;
+  \item Monitoreo de velocidad y separación;
+  \item Limitación de potencia y fuerza.
+\end{itemize}
+
+Con las cuatro técnicas, el robot trabaja en modo automático. Los detalles principales de los cuatro métodos se presentan en la Tabla~\ref{tab:operaciones-colab} \cite{lenarcic2012}.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Tabla de tipos de operaciones colaborativas. Información adaptada de \cite{lenarcic2012}.}
+  \label{tab:operaciones-colab}
+  \begin{tabular}{ll}
+    \toprule
+    Técnica & Descripción \\
+    \midrule
+    Parada monitoreada & Ningún movimiento en presencia del operador \\
+    Guía manual & Movimiento únicamente por operador directo \\
+    Velocidad y separación & Contacto impedido entre robot y operador \\
+    Limitación de potencia & El robot no puede impartir fuerza excesiva \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Guía manual}
+
+Para guiarlo manualmente, el robot debe estar equipado con un dispositivo de guía especial ubicado en el efector final del robot o cerca de él, que sirve para transmitir comandos de movimiento al sistema del robot. El dispositivo debe incorporar una parada de emergencia y un dispositivo de habilitación, a menos que el sistema del robot cumpla con medidas de diseño inherentemente seguras o funciones de limitación de seguridad \cite{lenarcic2012}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{diag_secuencia operativa.png}
+  \caption{Secuencia operativa para el guiado manual. Información adaptada de \cite{lenarcic2012}.}
+  \label{fig:guia-manual}
+\end{figure}
+
+\subsection{Monitoreo de velocidad y separación}
+
+En este método, el operador y el sistema robótico pueden moverse simultáneamente en el espacio de trabajo colaborativo. Durante las operaciones conjuntas, se mantiene en todo momento la distancia mínima de separación de protección entre el operador y el sistema robótico. La distancia de separación protectora $S_{pag}$ puede describirse mediante la ecuación:
+\[
+S_{pag}(a_0) = S_o + S_a + S_s + C + Z_d + Z_a
+\]
+donde $S_o$ es la contribución atribuida al cambio de ubicación del operador, $S_a$ la distancia debida al tiempo de reacción del robot, y $S_s$ la distancia de frenado del sistema robótico \cite{lenarcic2012}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{Representacion_distancia_protectora.png}
+  \caption{Contribuciones a la distancia de separación protectora entre operador y robot. Información adaptada de \cite{lenarcic2012}.}
+  \label{fig:separacion}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{niveles de seguridad.png}
+  \caption{Niveles de seguridad para mantener la distancia mínima de separación protectora. Información adaptada de \cite{lenarcic2012}.}
+  \label{fig:niveles-seg}
+\end{figure}
+
+\subsection{Limitación de potencias y fuerza}
+
+El método de limitación de potencia y fuerza permite el contacto físico entre el sistema robótico y el operador, que puede producirse de forma intencionada o no. El método exige que los robots estén diseñados específicamente mediante baja inercia, geometría adecuada (bordes y esquinas redondeados, superficies lisas y flexibles), materiales (acolchado, amortiguación, componentes deformables) y funciones de control \cite{lenarcic2012}. Hay dos tipos posibles de contacto: cuasiestático (sujeción o aplastamiento) y transitorio (contacto breve, menor a 50\,ms).
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{interaccion_humano_robot Nota. a) Cuasi-estático y b) Contacto transitorio.png}
+  \caption{a) Contacto cuasiestático y b) Contacto transitorio. Información adaptada de \cite{lenarcic2012}.}
+  \label{fig:contacto}
+\end{figure}
+
+\section{Motor HerkuleX DRS 0602}
+
+El servomotor HerkuleX DRS-0602 es un actuador modular inteligente que integra motor, reductor de engranajes, circuitos de control y capacidad de comunicación en un solo paquete, diseñado específicamente para aplicaciones que requieren alta precisión y durabilidad. Este servomotor cuenta con un codificador magnético basado en potenciómetro aplicado, que garantiza una alta resolución de 12\,960 pasos y excelente linealidad, aumentando las capacidades de control preciso y estable. Además, su diseño permite tanto una rotación continua como un ángulo de operación de hasta 900 grados, manteniendo una velocidad constante a través de su controlador de velocidad incorporado. Compacto y ligero, el DRS-0602 es ideal para robótica móvil y sistemas embebidos en los que la repetitividad, la durabilidad y la integración eficiente de componentes resultan esenciales para su óptimo funcionamiento.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.5\textwidth]{motor_herk_1.png}
+  \caption{HerkuleX DRS-0602 Smart Robot Servo. Información adaptada de RobotShop.}
+  \label{fig:drs0602}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.5\textwidth]{Dimensiones de HerkuleX DRS-0602 .png}
+  \caption{Dimensiones de HerkuleX DRS-0602 Smart Robot Servo. Información adaptada del manual.}
+  \label{fig:drs0602-dim}
+\end{figure}
+
+\section{Gripper piCOBOT}
+
+El gripper piCOBOT es un avanzado dispositivo de agarre diseñado específicamente para aplicaciones en robótica colaborativa. Desarrollado por la empresa Piab, se caracteriza por su diseño compacto, flexible y altamente adaptable, lo que lo convierte en una solución ideal para operar en colaboración con seres humanos en diversos entornos industriales. Su enfoque principal es ofrecer una herramienta segura y precisa, adecuada para cobots y otras aplicaciones robóticas que requieren estos atributos.
+
+El piCOBOT cuenta con una unidad eyectora de vacío con controles integrados, indicadores visuales de estado de gran tamaño y una pantalla fácil de utilizar. Está disponible con una interfaz eléctrica genérica y ofrece varias opciones para las dimensiones de la placa de montaje mecánica, de acuerdo con la norma ISO 9409-1, lo que permite configurarlo para funcionar con cualquier robot colaborativo o robots industriales más pequeños. Certificado por Universal Robots, el piCOBOT se monta directamente en el brazo de los robots UR, cumpliendo con la norma ISO-9409-1-50-M6. Además, permite la opción de montar una ventosa directamente en la interfaz de rosca piCOBOT, o también es posible conectar una pinza ajustable de alta gama con dos ventosas para una mayor versatilidad. El dispositivo está equipado con un software complementario (URCaps) para el teach pendant (dispositivo de programación), lo que facilita su instalación, configuración y uso, permitiendo una rápida integración en cualquier entorno colaborativo.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.5\textwidth]{efector_picobot.png}
+  \caption{piCOBOT vacuum gripper unit. Información adaptada de Piab.}
+  \label{fig:picobot}
+\end{figure}
