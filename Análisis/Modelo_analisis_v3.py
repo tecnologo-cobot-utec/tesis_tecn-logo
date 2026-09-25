@@ -29,8 +29,7 @@ L4 = 0.0487      # J4 -> J5
 L5 = 0.0550      # J5 -> punto de montaje del efector
 
 # Efector final
-    
-L_EF = 0.0719 # largo propio del efector final
+L_EF = 0.0719    # piCOBOT General: longitud desde la platina de montaje
 
 # Extensión trasera asociada a L3 / motor M3
 cola_L3 = 0.0647
@@ -55,7 +54,7 @@ m_M5 = m_motor
 # Base
 # No se considera como carga distal en J2/J3,
 # pero se deja registrada como referencia del sistema.
-m_base = 0.228
+m_base = 0.378
 m_arduino = 0.025
 
 # Eslabones / piezas impresas
@@ -67,10 +66,13 @@ m_L4 = 0.067
 m_L5 = 0.050
 
 # Efector final
-# Pendiente según herramienta montada.
-# Por ahora se toma como 0 para no introducir una carga no medida.
-#m_EF = 0.000
-m_EF = 0.720     # piCOBOT + gripper, valor provisional
+# Se comparan dos escenarios:
+# - brazo sin piCOBOT
+# - brazo con piCOBOT + gripper (masa provisional)
+escenarios_ef = {
+    "sin_piCOBOT": 0.000,
+    "con_piCOBOT": 0.720,
+}
 
 # ============================================================
 # 4. CONFIGURACIONES ANGULARES
@@ -145,7 +147,7 @@ def imprimir_punto(nombre, p):
 # 6. MODELO DEL BRAZO PARA UNA CONFIGURACIÓN
 # ============================================================
 
-def calcular_modelo(config):
+def calcular_modelo(config, m_ef):
     """
     Calcula articulaciones, centros de masa, motores y torques
     para una configuración angular dada.
@@ -222,7 +224,7 @@ def calcular_modelo(config):
         ("Motor M3", m_M3, M3),
         ("Motor M4", m_M4, M4),
         ("Motor M5", m_M5, M5),
-        ("Efector final", m_EF, CM_EF),
+        ("Efector final", m_ef, CM_EF),
     ]
 
     modelo = {
@@ -259,6 +261,7 @@ def calcular_modelo(config):
             "M5": M5,
         },
         "elementos": elementos,
+        "m_ef": m_ef,
     }
 
     return modelo
@@ -359,15 +362,11 @@ def calcular_torques(modelo):
     }
 
 # ============================================================
-# 8. FILTRAR ELEMENTOS SEGÚN ARTICULACIÓN
+# 8. FILTRADO FÍSICO SEGÚN ARTICULACIÓN
 # ============================================================
-# Nota:
-# Por ahora se suman todos los elementos en todos los pivotes.
-# Para el análisis final podemos filtrar:
-# - En J2 no deberían aportar base, M1 ni quizá L1.
-# - En J3 no deberían aportar L1, L2 ni M2.
-# De momento dejamos el cálculo general para ver signos y comportamiento.
-# Luego hacemos una versión "física" filtrada.
+# El filtrado se realiza en filtrar_elementos_para_articulacion(),
+# de modo que cada articulación reciba únicamente las cargas distales
+# correspondientes dentro del modelo simplificado.
 
 
 # ============================================================
@@ -403,7 +402,7 @@ def imprimir_reporte(nombre_config, modelo, torques):
 # 10. GRÁFICO
 # ============================================================
 
-def graficar_modelo(nombre_config, modelo, guardar=False):
+def graficar_modelo(nombre_config, modelo, nombre_escenario, guardar=False):
     puntos = modelo["puntos"]
     cms = modelo["cms"]
     motores = modelo["motores"]
@@ -457,13 +456,13 @@ def graficar_modelo(nombre_config, modelo, guardar=False):
 
     plt.xlabel("X [m]")
     plt.ylabel("Z [m]")
-    plt.title(f"Modelo simplificado del brazo - {nombre_config}")
+    plt.title(f"Modelo simplificado del brazo - {nombre_config} - {nombre_escenario}")
     plt.axis("equal")
     plt.grid(True)
     plt.legend()
 
     if guardar:
-        nombre_archivo = f"modelo_brazo_{nombre_config}.png"
+        nombre_archivo = f"modelo_brazo_{nombre_escenario}_{nombre_config}.png"
         plt.savefig(nombre_archivo, dpi=300, bbox_inches="tight")
         print(f"Imagen guardada: {nombre_archivo}")
 
@@ -476,33 +475,69 @@ def graficar_modelo(nombre_config, modelo, guardar=False):
 
 if __name__ == "__main__":
 
-    resumen = []
+    resultados = {}
 
-    for nombre_config, config in configuraciones.items():
-        modelo = calcular_modelo(config)
-        torques = calcular_torques(modelo)
+    for nombre_escenario, masa_ef in escenarios_ef.items():
+        print("\n" + "#" * 78)
+        print(f"ESCENARIO: {nombre_escenario} | masa EF = {masa_ef:.3f} kg")
+        print("#" * 78)
 
-        imprimir_reporte(nombre_config, modelo, torques)
-        graficar_modelo(nombre_config, modelo, guardar=True)
+        resultados[nombre_escenario] = {}
 
-        resumen.append({
-            "configuracion": nombre_config,
-            "tau_J2": torques["J2"]["total"],
-            "tau_J3": torques["J3"]["total"],
-        })
+        for nombre_config, config in configuraciones.items():
+            modelo = calcular_modelo(config, masa_ef)
+            torques = calcular_torques(modelo)
 
-    print("\n" + "=" * 70)
-    print("RESUMEN DE TORQUES")
-    print("=" * 70)
+            imprimir_reporte(nombre_config, modelo, torques)
+            graficar_modelo(
+                nombre_config,
+                modelo,
+                nombre_escenario,
+                guardar=True
+            )
 
-    print(f"{'Configuración':15s} {'J2 [N·m]':>12s} {'J3 [N·m]':>12s}")
-    print("-" * 42)
+            resultados[nombre_escenario][nombre_config] = {
+                "tau_J2": abs(torques["J2"]["total"]),
+                "tau_J3": abs(torques["J3"]["total"]),
+            }
 
-    for fila in resumen:
-        print(
-            f"{fila['configuracion']:15s} "
-            f"{fila['tau_J2']:12.3f} "
-            f"{fila['tau_J3']:12.3f}"
+    print("\n" + "=" * 92)
+    print("COMPARACIÓN DE TORQUES: SIN piCOBOT / CON piCOBOT")
+    print("=" * 92)
+
+    encabezado = (
+        f"{'Configuración':15s} "
+        f"{'J2 sin [N·m]':>14s} "
+        f"{'J2 con [N·m]':>14s} "
+        f"{'J3 sin [N·m]':>14s} "
+        f"{'J3 con [N·m]':>14s}"
     )
-        
-    
+    print(encabezado)
+    print("-" * len(encabezado))
+
+    for nombre_config in configuraciones:
+        j2_sin = resultados["sin_piCOBOT"][nombre_config]["tau_J2"]
+        j2_con = resultados["con_piCOBOT"][nombre_config]["tau_J2"]
+        j3_sin = resultados["sin_piCOBOT"][nombre_config]["tau_J3"]
+        j3_con = resultados["con_piCOBOT"][nombre_config]["tau_J3"]
+
+        print(
+            f"{nombre_config:15s} "
+            f"{j2_sin:14.3f} "
+            f"{j2_con:14.3f} "
+            f"{j3_sin:14.3f} "
+            f"{j3_con:14.3f}"
+        )
+
+    print("\nIncremento de torque por incorporación del piCOBOT:")
+    for nombre_config in configuraciones:
+        j2_sin = resultados["sin_piCOBOT"][nombre_config]["tau_J2"]
+        j2_con = resultados["con_piCOBOT"][nombre_config]["tau_J2"]
+        j3_sin = resultados["sin_piCOBOT"][nombre_config]["tau_J3"]
+        j3_con = resultados["con_piCOBOT"][nombre_config]["tau_J3"]
+
+        print(
+            f"- {nombre_config}: "
+            f"ΔJ2 = {j2_con - j2_sin:.3f} N·m | "
+            f"ΔJ3 = {j3_con - j3_sin:.3f} N·m"
+        )

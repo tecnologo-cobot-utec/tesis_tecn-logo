@@ -8,12 +8,23 @@ Repositorio para el desarrollo de la tesis de tecnólogo. Incluye el código de 
 tesis_tecn-logo/
 ├── codigo/
 │   └── herkulex-drs0602-lib/   ← Submodule: librería HerkuleX DRS-0602
+├── Análisis/                   ← scripts y figuras de análisis del brazo
+├── diseno_3d/                  ← CAD fuente y exportaciones (estructura)
 ├── docs/                       ← capítulos, borradores, notas
 ├── templates/                  ← plantillas LaTeX
 │   └── utec-tesis-latex/       ← template para tesis UTEC
 ├── normativa/                  ← guías de la universidad
 └── tesis/                      ← espacio para tu documento en desarrollo
 ```
+
+## Archivos del proyecto
+
+| Contenido | Ubicación |
+|-----------|-----------|
+| Código fuente (librería HerkuleX, firmware del brazo, bridge ESP y servidor web) | `codigo/herkulex-drs0602-lib/` |
+| Análisis en Python (modelo del brazo y figuras) | `Análisis/` |
+| Diseños 3D (CAD editables y exportaciones) | `diseno_3d/` |
+| Documentación del proyecto (tesis LaTeX, normativa, plantillas y notas) | `docs/`, `templates/utec-tesis-latex/`, `normativa/` |
 
 ## Cómo empezar
 
