@@ -1,6 +1,8 @@
 # Datos extraídos de PROYECTO FINAL DE TECNOLOGO_version_previa.docx
 
-## Metadatos (ya incorporados en main.tex)
+> Nota: la versión LaTeX del informe se dejó de usar. El documento se redacta en Google Docs / docx. Este archivo queda como referencia histórica.
+
+## Metadatos (referencia)
 
 | Campo | Valor |
 |-------|-------|

@@ -1,6 +1,6 @@
 # Imágenes extraídas del documento PROYECTO FINAL DE TECNOLOGO_version_previa
 
-Las imágenes se copiaron a `templates/utec-tesis-latex/images/`.
+> Nota: la carpeta LaTeX `templates/utec-tesis-latex/images/` se eliminó del repositorio (el informe pasó a Google Docs / docx). Si hacen falta, se pueden recuperar del historial de Git.
 
 ## Listado de archivos
 

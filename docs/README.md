@@ -33,8 +33,8 @@
 
 ---
 
-## Próximos pasos sugeridos
+## Redacción del informe
 
-1. **Adaptar el template LaTeX** en `templates/utec-tesis-latex/` a esta estructura oficial (portada UTEC Uruguay, secciones, APA 7).
-2. **Mover normativa** — Los PDFs podrían copiarse también a `normativa/` para centralizar.
-3. **Crear el documento de trabajo** — Copiar el template LaTeX adaptado a `tesis/` y empezar a redactar.
+El documento del proyecto se elabora en **Google Docs / Word (docx)**, usando la plantilla oficial de esta carpeta como referencia de estructura y formato.
+
+No se mantiene en el repositorio una versión LaTeX del informe.

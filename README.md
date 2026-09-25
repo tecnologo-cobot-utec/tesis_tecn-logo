@@ -1,6 +1,8 @@
 # Tesis de Tecnólogo — Brazo robótico con HerkuleX DRS-0602
 
-Repositorio para el desarrollo de la tesis de tecnólogo. Incluye el código de la librería de motores HerkuleX, el brazo robótico construido y los documentos de la tesis.
+Repositorio de respaldo y continuidad del Proyecto Final de Tecnólogo en Mecatrónica (UTEC). Incluye el código del cobot, la librería HerkuleX, análisis y espacio para diseños 3D.
+
+El documento escrito del proyecto se elabora en **Google Docs / Word (docx)**; no se mantiene en este repositorio una versión LaTeX.
 
 ## Estructura del proyecto
 
@@ -10,11 +12,8 @@ tesis_tecn-logo/
 │   └── herkulex-drs0602-lib/   ← Submodule: librería HerkuleX DRS-0602
 ├── Análisis/                   ← scripts y figuras de análisis del brazo
 ├── diseno_3d/                  ← CAD fuente y exportaciones (estructura)
-├── docs/                       ← capítulos, borradores, notas
-├── templates/                  ← plantillas LaTeX
-│   └── utec-tesis-latex/       ← template para tesis UTEC
-├── normativa/                  ← guías de la universidad
-└── tesis/                      ← espacio para tu documento en desarrollo
+├── docs/                       ← normativa, plantillas Word y notas
+└── normativa/                  ← guías de la universidad (si se centralizan aquí)
 ```
 
 ## Archivos del proyecto
@@ -24,7 +23,7 @@ tesis_tecn-logo/
 | Código fuente (librería HerkuleX, firmware del brazo, bridge ESP y servidor web) | `codigo/herkulex-drs0602-lib/` |
 | Análisis en Python (modelo del brazo y figuras) | `Análisis/` |
 | Diseños 3D (CAD editables y exportaciones) | `diseno_3d/` |
-| Documentación del proyecto (tesis LaTeX, normativa, plantillas y notas) | `docs/`, `templates/utec-tesis-latex/`, `normativa/` |
+| Documentación de referencia (normativa UTEC, plantillas docx y notas) | `docs/`, `normativa/` |
 
 ## Cómo empezar
 
@@ -36,28 +35,12 @@ Si clonaste el repo sin submodules, inicialízalos:
 git submodule update --init
 ```
 
-### 2. Crear el documento de LaTeX para Overleaf
+### 2. Normativa y plantillas Word
 
-El template está en `templates/utec-tesis-latex/`. Para usarlo en Overleaf:
+- **docs/**: Manuales, circular de trabajos finales, normas APA y plantilla Word oficial UTEC.
+- El informe del proyecto se redacta fuera del repo (Google Docs / docx).
 
-1. **Reemplaza el logo** en `templates/utec-tesis-latex/images/logo-utec.png` por el logo oficial de tu institución.
-
-2. **Crea un ZIP** para subir a Overleaf:
-   ```bash
-   cd templates/utec-tesis-latex
-   zip -r tesis-overleaf.zip . -x "*.git*" -x "*.aux" -x "*.log" -x "*.pdf"
-   ```
-
-3. **Sube a Overleaf**: [overleaf.com](https://www.overleaf.com) → New Project → Upload Project → selecciona el ZIP.
-
-Ver instrucciones detalladas en [templates/utec-tesis-latex/OVERLEAF.md](templates/utec-tesis-latex/OVERLEAF.md).
-
-### 3. Normativa y plantillas
-
-- **normativa/**: Coloca aquí los PDFs o guías de formato que te proporcione la universidad.
-- **templates/**: Template LaTeX adaptado al formato oficial UTEC Uruguay (ITR Suroeste, Fray Bentos). Ver `templates/utec-tesis-latex/OVERLEAF.md` para usarlo en Overleaf.
-
-### 4. Actualizar la librería HerkuleX
+### 3. Actualizar la librería HerkuleX
 
 ```bash
 cd codigo/herkulex-drs0602-lib
@@ -72,3 +55,4 @@ git commit -m "Actualizar librería herkulex-drs0602-lib"
 - **Librería HerkuleX**: [codigo/herkulex-drs0602-lib](codigo/herkulex-drs0602-lib) — API y ejemplos en `docs/` y `examples/`
 - **Brazo robótico**: ejemplo en `codigo/herkulex-drs0602-lib/examples/proyecto_cobot/`
 - **Guía de vinculación**: [codigo/herkulex-drs0602-lib/docs/GUIA_REPO_TESIS.md](codigo/herkulex-drs0602-lib/docs/GUIA_REPO_TESIS.md)
+- **Repositorio en GitHub**: https://github.com/tecnologo-cobot-utec/tesis_tecn-logo
